@@ -3,6 +3,7 @@ on: workflow_dispatch
 
 env:
  ACR_LOGIN_SERVER: aistraining.azurecr.io
+ TAG_NAME: eshoponweb-014:0.0.1
  
 
 jobs: 
@@ -17,3 +18,10 @@ jobs:
       uses: docker/login-action@v4.4.0
       with:
        login-sever: ${{ env.ACR_LOGIN_SERVER }}
+       username: ${{ secrets.ACR_USERNAME }}
+       password: ${{ secrets.ACR_PASSWORD }}
+    - name: Build and push image
+      run: 
+       docker build . -t ${{  env.ACR_LOGIN_SERVER}}/${{ env.TAG_NAME}}
+       docker push ${{  env.ACR_LOGIN_SERVER }}/${{ env.TAG_NAME }}
+      
