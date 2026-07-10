@@ -1,0 +1,19 @@
+name: Conatainer Workflow
+on: workflow_dispatch
+
+env:
+ ACR_LOGIN_SERVER: aistraining.azurecr.io
+ 
+
+jobs: 
+ build-container:
+   runs-on: ubuntu-lastest
+
+   steps:
+    - name: Checkput sorce code
+      uses: action/checkout@7.0
+
+    - name: ACR Login
+      uses: docker/login-action@v4.4.0
+      with:
+       login-sever: ${{ env.ACR_LOGIN_SERVER }}
